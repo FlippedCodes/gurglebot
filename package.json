@@ -19,7 +19,7 @@
   "homepage": "https://github.com/FlipperLP/gurglebot#readme",
   "dependencies": {
     "discord.js": "^12.3.1",
-    "handlebars": "^4.7.6",
+    "handlebars": "^4.7.7",
     "moment": "^2.29.1",
     "mysql2": "^2.2.5",
     "pretty-ms": "^5.1.0",
