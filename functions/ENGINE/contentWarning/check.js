@@ -45,6 +45,7 @@ module.exports.run = async (message) => {
   const urlRegEx = /http[s]?:\/\/(www\.)?(.*)?\/?(.)*/gm;
   const urlMatch = message.content.match(urlRegEx);
   if (urlMatch) {
+    // check if link has spoiler terminators (||)
     const spoilerRegEx = /\|\|(.*?)http[s]?:\/\/(www\.)?(.*)?\/?(.)*/gm;
     const matches = message.content.match(spoilerRegEx);
     spoilerValidation = !!matches;
@@ -54,7 +55,7 @@ module.exports.run = async (message) => {
   const stringValidation = !(config.contentWarning.cwStrings
     .map((searchString) => message.content.toLowerCase().search(searchString) === -1)
     .every((e) => e));
-  if (stringValidation) return;
+  if (stringValidation && spoilerValidation) return;
 
   // send message, informing user and providing options
   const bodyContent = `
