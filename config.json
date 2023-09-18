@@ -104,12 +104,20 @@
         ],
         "links": [
             {
-                "search": "www.furaffinity.net",
-                "replace": "fxfuraffinity.net"
+                "search": "www.furaffinity.net/view",
+                "replace": "fxfuraffinity.net/view"
             },
             {
-                "search": "//furaffinity.net",
-                "replace": "//fxfuraffinity.net"
+                "search": "//furaffinity.net/view",
+                "replace": "//fxfuraffinity.net/view"
+            },
+            {
+                "search": "www.furaffinity.net/full",
+                "replace": "fxfuraffinity.net/full"
+            },
+            {
+                "search": "//furaffinity.net/full",
+                "replace": "//fxfuraffinity.net/full"
             },
             {
                 "search": "//twitter.com",
