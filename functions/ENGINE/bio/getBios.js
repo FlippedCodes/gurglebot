@@ -57,13 +57,16 @@ module.exports.run = async (interaction, member) => {
     else if (bioMessage.author.id !== member.id) bios.push({ name: null });
     else {
       const [description, fields] = prepareFields(bioMessage.content);
+      const embeds = [];
+      embeds.push(...bioMessage.embeds.map((embed) => embed.url));
+      embeds.push(...bioMessage.attachments.map((attachment) => attachment.url));
       await bios.push({
         id: bioMessage.id,
         name: thread.name,
         link: bioMessage.url,
         description,
         fields,
-        embeds: bioMessage.embeds.map((embed) => embed.url),
+        embeds,
         // check if user can see channel and their for has permissions
         allowed: thread.parent.permissionsFor(interaction.member).has(PermissionsBitField.Flags.ViewChannel),
       });
