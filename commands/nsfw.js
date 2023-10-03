@@ -3,6 +3,8 @@ const moment = require('moment');
 const { EmbedBuilder } = require('discord.js');
 
 module.exports.run = async (interaction) => {
+  await interaction.deferReply();
+
   // only guild command
   if (!await interaction.inGuild()) return messageFail(interaction, 'This comamnd is for servers only.');
   // check if user is teammember

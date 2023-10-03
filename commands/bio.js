@@ -15,6 +15,8 @@ const menu = (bioList) => new ActionRowBuilder()
   ]);
 
 module.exports.run = async (interaction) => {
+  await interaction.deferReply({ ephemeral: true });
+
   const member = interaction.options.getMentionable('user', true);
   const PFP = await member.user.displayAvatarURL({ format: 'png', dynamic: true, size: 4096 });
 
@@ -27,7 +29,8 @@ module.exports.run = async (interaction) => {
   const body = `**${member}s Bio List**
 ${allowedBios.map((bio) => `- [${bio.name}](${bio.link})`).join('\n')}
 
-Select a bio below to see its details. (This will display images about the bio.)
+Select a bio below to see its details.
+(This will display images about the bio.)
 ${!allowedAll ? '**Because you don\'t have the NSFW and/or NSFL role, the list is incomplete!**' : ''}`;
 
   const message = new EmbedBuilder().setDescription(body).setColor('Blue').setThumbnail(PFP);

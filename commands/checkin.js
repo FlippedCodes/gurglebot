@@ -1,4 +1,6 @@
 module.exports.run = async (interaction) => {
+  await interaction.deferReply();
+
   // check if user is teammember
   if (!interaction.member.roles.cache.find(({ id }) => id === config.teamRole)) return messageFail(interaction, 'You don\'t have access to this command! òwó');
 
