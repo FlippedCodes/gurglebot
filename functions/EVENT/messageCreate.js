@@ -12,8 +12,8 @@ module.exports.run = async (message) => {
   if (config.linkReplace.checkChannels.includes(message.channel.id)) return client.functions.get('ENGINE_linkReplace_check').run(message);
 
   // check if channel channel is a limited RP zone
-  // if (!DEBUG && config.reducedRP.channels.includes(message.channel.id)) return client.functions.get('ENGINE_limitedRp').run(message);
-  if (config.reducedRP.channels.includes(message.channel.id)) return client.functions.get('ENGINE_limitedRp').run(message);
+  if (!DEBUG && config.reducedRP.channels.includes(message.channel.id)) return client.functions.get('ENGINE_limitedRp').run(message);
+  // if (config.reducedRP.channels.includes(message.channel.id)) return client.functions.get('ENGINE_limitedRp').run(message);
 
   // non command function: checkin complete questioning Reaction adding
   if (message.mentions.roles.has(config.teamRole)
