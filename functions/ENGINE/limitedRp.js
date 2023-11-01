@@ -20,7 +20,7 @@ async function updatePoints() {
 
 module.exports.run = async (message) => {
   // check messages for all rp messages and convert them to points
-  const rpRegex = /(?:\w*)[*_]{1,2}\w*[*_]{1,2}(?:\w*)/gm;
+  const rpRegex = /(?:\w*)[*_]{1,2}.*?[*_]{1,2}(?:\w*)/gm;
   const findings = message.cleanContent.match(rpRegex);
   if (!findings) return;
   const points = findings.join().length;
