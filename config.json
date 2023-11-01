@@ -131,6 +131,14 @@
             }
         ]
     },
+    "reducedRP": {
+        "pointsDeletionTime": 10000,
+        "warnThreshold": 300,
+        "channels": [
+            "483642091851874314",
+            "496962434917990410"
+        ]
+    },
     "disboardReminder": {
         "channelID": "782260178925387786",
         "userID": "302050872383242240",
