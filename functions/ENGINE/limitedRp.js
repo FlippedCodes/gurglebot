@@ -43,7 +43,7 @@ module.exports.run = async (message) => {
   }
 
   const activeUser = users.find((user) => user.id === id);
-  console.log(activeUser);
+  // console.log(activeUser);
   if (activeUser.points < config.reducedRP.warnThreshold) return;
   // TEMP: get testing report channel
   const notify = await message.client.channels.fetch('1169354618719973437');
