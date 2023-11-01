@@ -25,9 +25,6 @@ module.exports.run = async (message) => {
   if (!findings) return;
   const points = findings.join().length;
 
-  // Update point counts
-  await updatePoints();
-
   // check if there is a user already to add the points to and check warnings.
   const id = message.author.id;
   const user = users.find((user) => user.id === id);
@@ -41,6 +38,9 @@ module.exports.run = async (message) => {
       lastPointsDeletion: Date.now(),
     });
   }
+
+  // Update point counts
+  await updatePoints();
 
   const activeUser = users.find((user) => user.id === id);
   // console.log(activeUser);
