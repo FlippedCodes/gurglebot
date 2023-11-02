@@ -13,6 +13,8 @@ async function updatePoints() {
     activeUser.points -= points;
     // check if points go into negative and delete entire entry and return
     if (Math.sign(activeUser.points) === -1) return users = users.filter((userTemp) => userTemp.id !== user.id);
+    // if points drop unter threshold, reset warn
+    if (activeUser.points < config.reducedRP.warnThreshold) activeUser.warned = false;
     // update lastPointsDeletion when points where adjusted
     if (points !== 0) activeUser.lastPointsDeletion = Date.now();
   });
