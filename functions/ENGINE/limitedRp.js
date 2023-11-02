@@ -57,7 +57,7 @@ module.exports.run = async (message) => {
       { name: 'lastPointsUpdate', value: `<t:${activeUser.lastPointsDeletion}:f>`, inline: true },
     ]);
   // check if user has been warned
-  if (activeUser.warn) {
+  if (activeUser.warned) {
     // delete rp message
     embed.setColor('Red').setDescription(`<@${activeUser.id}> would have their message deleted.`);
   } else {
