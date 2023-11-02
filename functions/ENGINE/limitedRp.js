@@ -43,6 +43,8 @@ module.exports.run = async (message) => {
   await updatePoints();
 
   const activeUser = users.find((user) => user.id === id);
+  // sometimes user is deleted by updatePoints beforehand.
+  if (!activeUser) return;
   // console.log(activeUser);
   if (activeUser.points < config.reducedRP.warnThreshold) return;
   // TEMP: get testing report channel
