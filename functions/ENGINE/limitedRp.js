@@ -56,7 +56,7 @@ module.exports.run = async (message) => {
       { name: 'User ID', value: `\`${activeUser.id}\``, inline: true },
       { name: 'Current Points', value: String(activeUser.points), inline: true },
       // { name: 'Warned', value: prettyCheck(activeUser.warned), inline: true },
-      { name: 'lastPointsUpdate', value: `<t:${activeUser.lastPointsDeletion}:f>`, inline: true },
+      { name: 'lastPointsUpdate', value: `<t:${activeUser.lastPointsDeletion.slice(0, -3)}:f>`, inline: true },
     ]);
   // check if user has been warned
   if (activeUser.warned) {
