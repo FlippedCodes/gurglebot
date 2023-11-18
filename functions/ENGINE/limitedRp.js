@@ -50,7 +50,7 @@ module.exports.run = async (message) => {
   // console.log(activeUser);
   if (activeUser.points < config.reducedRP.warnThreshold) return;
   // TEMP: get testing report channel
-  const notify = await message.client.channels.fetch('1169354618719973437');
+  const notify = await message.client.channels.fetch('1175234775414472775');
   const embed = new EmbedBuilder()
     .addFields([
       { name: 'User ID', value: `\`${activeUser.id}\``, inline: true },
