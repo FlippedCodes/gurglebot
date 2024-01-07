@@ -42,7 +42,7 @@ global.ERR = (err) => {
 client.commands = new Collection();
 client.functions = new Collection();
 
-// anouncing debug mode
+// announcing debug mode
 if (DEBUG) console.log(`[${config.name}] Bot is on Debug-Mode. Some functions are not going to be loaded.`);
 
 (async () => {
