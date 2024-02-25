@@ -8,7 +8,7 @@ Before we let you in im going to ask you some questions, before a staff member i
 :four: - What is your DoB date of birth? (Preferable in YYYY-MM-DD format)
 :five: - Please provide your ID as in <#496948681656893440> described.
 
-When you are done please ping/mention \`@Team\`, so we know that you are done and ready to be reviewd.
+When you are done please ping/mention \`@Team\`, so we know that you are done and ready to be reviewed.
 `;
 
 // calculate user creation
