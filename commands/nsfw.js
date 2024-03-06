@@ -6,7 +6,7 @@ module.exports.run = async (interaction) => {
   await interaction.deferReply();
 
   // only guild command
-  if (!await interaction.inGuild()) return messageFail(interaction, 'This comamnd is for servers only.');
+  if (!await interaction.inGuild()) return messageFail(interaction, 'This command is for servers only.');
   // check if user is teammember
   if (!interaction.member.roles.cache.find(({ id }) => id === config.teamRole)) return messageFail(interaction, 'You don\'t have access to this command! òwó');
   const subName = interaction.options.getSubcommand();
