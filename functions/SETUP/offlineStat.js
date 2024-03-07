@@ -14,7 +14,7 @@ module.exports.run = async () => {
     .setColor('Green')
     .setFooter({ text: client.user.tag, icon_url: client.user.displayAvatarURL })
     .setTimestamp();
-  const offlineTime = await OfflineStat.findOne({ where: { ID: 2 } }).catch(ERR);
+  const offlineTime = await OfflineStat.findOne({ where: { ID: client.user.id } }).catch(ERR);
   if (offlineTime) {
     const timeStamp = moment(offlineTime.updatedAt);
     embed.addFields([
@@ -29,10 +29,10 @@ module.exports.run = async () => {
   setInterval(async () => {
     // loop db update in 5 sec intervall
     const [offlineStat] = await OfflineStat.findOrCreate({
-      where: { ID: 2 }, defaults: { time: startupTime },
+      where: { ID: client.user.id }, defaults: { time: startupTime },
     }).catch(ERR);
     if (!offlineStat.isNewRecord) {
-      OfflineStat.update({ time: +new Date() }, { where: { ID: 2 } }).catch(ERR);
+      OfflineStat.update({ time: +new Date() }, { where: { ID: client.user.id } }).catch(ERR);
     }
   }, 1 * 5000);
 };
