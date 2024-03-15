@@ -11,7 +11,7 @@ async function postLeaderboard() {
     .sort((a, b) => a.points - b.points)
     // discord field limit
     .slice(0, 25)
-    .map((entry) => ({ name: `${entry.id}`, value: `<@${entry.id}> - ${entry.points} P - ${entry.warnLevel} WL` }));
+    .map((entry) => ({ name: `${entry.id}`, value: `<@${entry.id}>\n${entry.points} points\n${entry.warnLevel} warning level` }));
   const embed = new EmbedBuilder()
     .setFooter({
       text: `Highest warn level is ${config.reducedRP.warnThresholds.length} at ${config.reducedRP.warnThresholds[config.reducedRP.warnThresholds.length - 1]} points.`,
@@ -67,7 +67,7 @@ module.exports.run = async (message) => {
         // overflow protection
         if (activeUser.warnLevel === config.reducedRP.warnThresholds.length) return true;
         activeUser.warnLevel += 1;
-        // reset points to warn threshold
+        // reset points to warn threshold, so it fair and user goes through each stage
         activeUser.points = config.reducedRP.warnThresholds[activeUser.warnLevel - 1];
         // TODO: Inform user
         return false;
@@ -81,8 +81,6 @@ module.exports.run = async (message) => {
       }
       return true;
     });
-    console.log(activeUser);
-    // if warn increased, higher warn level by one point and use that as index to reset to that level of points
 
     // update lastPointsDeletion when points where adjusted
     if (points !== 0) activeUser.lastPointsDeletion = Date.now();
