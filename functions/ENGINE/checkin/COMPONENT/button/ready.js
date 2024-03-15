@@ -16,7 +16,7 @@ module.exports.run = async (interaction) => {
   await interaction.deferReply();
 
   if (interaction.channel.parentId !== config.checkin.categoryID) return messageFail(interaction, 'This channel is not a checkin channel.');
-  await client.functions.get('ENGINE_checkin_postReaction').run(interaction);
+  await client.functions.get('ENGINE_checkin_postReaction').run(interaction, true);
 
   // ping team, once
   const messages = await interaction.channel.messages.fetch();
