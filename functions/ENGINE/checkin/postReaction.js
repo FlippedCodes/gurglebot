@@ -81,6 +81,8 @@ module.exports.run = async (message) => {
 
   // dont activate 'checked' button, if DoB has not been checked
   const buttonsAdd = buttonsSetup({ checked: DoB ? checked : true, DoB });
+  // check, if it was deferred
+  if (message.deferred) return message.editReply({ embeds: [embed], components: [buttonsAdd] });
   message.reply({ embeds: [embed], components: [buttonsAdd] });
 };
 

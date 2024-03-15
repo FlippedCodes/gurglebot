@@ -25,7 +25,7 @@ module.exports.run = async (interaction) => {
   interaction.channel.send(`<@&${config.teamRole}>`);
 
   // gray out button
-  interaction.update({ components: [buttons] });
+  interaction.message.edit({ components: [buttons] });
 };
 
 module.exports.data = {
