@@ -7,7 +7,7 @@ Before we let you in I'm going to ask you some questions, before a staff member 
 :one: - How did you find our server?
 :two: - Are you on any other vore servers?
 :three: - Do you like vore, and what is your favorite?
-:four: - What is your DoB date of birth? (Preferable in YYYY-MM-DD format)
+:four: - Please let us know your DoB (Date of Birth) in the following format: \`YYYY-MM-DD\`.
 :five: - Please provide your ID as in <#496948681656893440> described.
 
 When you are done please press the button below, so we know that you are done, and ready to be reviewed.
