@@ -81,7 +81,7 @@ module.exports.run = async (message) => {
 
   // dont activate 'checked' button, if DoB has not been checked
   const buttonsAdd = buttonsSetup({ checked: DoB ? checked : true, DoB });
-  message.channel.send({ embeds: [embed], components: [buttonsAdd] });
+  message.reply({ embeds: [embed], components: [buttonsAdd] });
 };
 
 module.exports.data = {
