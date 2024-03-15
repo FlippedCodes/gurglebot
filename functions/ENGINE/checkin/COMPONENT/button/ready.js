@@ -1,3 +1,7 @@
+const {
+  ActionRowBuilder, ButtonBuilder, ButtonStyle,
+} = require('discord.js');
+
 const buttons = new ActionRowBuilder()
   .addComponents([
     new ButtonBuilder()
