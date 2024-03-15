@@ -1,3 +1,5 @@
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+
 const welcomeMessage = (userID) => `
 Hey there <@!${userID}>! Welcome to TDM.
 Before we let you in I'm going to ask you some questions, before a staff member is going to let you in.
@@ -8,8 +10,18 @@ Before we let you in I'm going to ask you some questions, before a staff member 
 :four: - What is your DoB date of birth? (Preferable in YYYY-MM-DD format)
 :five: - Please provide your ID as in <#496948681656893440> described.
 
-When you are done please ping/mention \`@Team\`, so we know that you are done and ready to be reviewed.
+When you are done please press the button below, so we know that you are done, and ready to be reviewed.
+(You can also run \`/checkin\`)
 `;
+
+const buttons = new ActionRowBuilder()
+  .addComponents([
+    new ButtonBuilder()
+      .setCustomId('checkin_COMPONENT_button_ready')
+      .setEmoji('👌')
+      .setLabel('I\'m ready!')
+      .setStyle(ButtonStyle.Primary),
+  ]);
 
 // calculate user creation
 function calcUserAge(user) {
@@ -25,7 +37,7 @@ async function createChannel(guild, user, topic) {
   // needs to be delayed, because API limit causes permissions to be set in reverse order.
   setTimeout(async () => {
     await channel.permissionOverwrites.edit(user.id, { ViewChannel: true }).catch(ERR);
-    await channel.send(welcomeMessage(user.id)).catch(ERR);
+    await channel.send({ content: welcomeMessage(user.id), components: [buttons] }).catch(ERR);
   }, 3 * 1000);
 }
 
