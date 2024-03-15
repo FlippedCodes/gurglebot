@@ -11,7 +11,6 @@ Before we let you in I'm going to ask you some questions, before a staff member 
 :five: - Please provide your ID as in <#496948681656893440> described.
 
 When you are done please press the button below, so we know that you are done, and ready to be reviewed.
-(You can also run \`/checkin\`)
 `;
 
 const buttons = new ActionRowBuilder()
