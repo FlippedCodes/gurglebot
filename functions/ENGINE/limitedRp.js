@@ -17,7 +17,7 @@ async function postLeaderboard() {
       text: `Highest warn level is ${config.reducedRP.warnThresholds.length} at ${config.reducedRP.warnThresholds[config.reducedRP.warnThresholds.length - 1]} points.`,
     })
     .setTitle('RP Leaderboard')
-    .setColor(users.length === 0 ? 'Green' : 'Orange')
+    .setColor(users.filter((entry) => entry.warnLevel !== 0).length === 0 ? 'Green' : 'Orange')
     .addFields([...fields]);
   if (!leaderboardMessage) return leaderboardMessage = await leaderboardChannel.send({ embeds: [embed] });
   return leaderboardMessage.edit({ embeds: [embed] });
