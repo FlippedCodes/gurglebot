@@ -1,10 +1,10 @@
 const welcomeMessage = (userID) => `
 Hey there <@!${userID}>! Welcome to TDM.
-Before we let you in im going to ask you some questions, before a staff member is going to let you in.
+Before we let you in I'm going to ask you some questions, before a staff member is going to let you in.
 
 :one: - How did you find our server?
 :two: - Are you on any other vore servers?
-:three: - Do you like vore and what is your favorite?
+:three: - Do you like vore, and what is your favorite?
 :four: - What is your DoB date of birth? (Preferable in YYYY-MM-DD format)
 :five: - Please provide your ID as in <#496948681656893440> described.
 
