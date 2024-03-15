@@ -79,10 +79,15 @@ module.exports.run = async (message) => {
   }
   const checked = userDoB ? userDoB.allow : false;
 
+  // ping team, once
+  const messages = await message.channel.messages.fetch();
+  const mentions = messages.filter((message) => message.mentions.roles.has(config.teamRole));
+  if (mentions.size === 0) message.channel.send(`<@&${config.teamRole}>`);
+
   // dont activate 'checked' button, if DoB has not been checked
   const buttonsAdd = buttonsSetup({ checked: DoB ? checked : true, DoB });
   // check, if it was deferred
-  if (interaction.deferred) return message.editReply({ embeds: [embed], components: [buttonsAdd] });
+  if (message.deferred) return message.editReply({ embeds: [embed], components: [buttonsAdd] });
   message.reply({ embeds: [embed], components: [buttonsAdd] });
 };
 
