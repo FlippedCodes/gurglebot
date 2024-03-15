@@ -1,3 +1,13 @@
+const buttons = new ActionRowBuilder()
+  .addComponents([
+    new ButtonBuilder()
+      .setCustomId('checkin_COMPONENT_button_disabled')
+      .setEmoji('👌')
+      .setLabel('I\'m ready!')
+      .setStyle(ButtonStyle.Primary)
+      .setDisabled(true),
+  ]);
+
 module.exports.run = async (interaction) => {
   await interaction.deferReply();
 
@@ -11,7 +21,7 @@ module.exports.run = async (interaction) => {
   interaction.channel.send(`<@&${config.teamRole}>`);
 
   // gray out button
-  interaction.message.edit({ components: interaction.message.components.map((c) => c.map((c) => c.setDisabled(true))) });
+  interaction.update({ components: [buttons] });
 };
 
 module.exports.data = {
