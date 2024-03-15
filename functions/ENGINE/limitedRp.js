@@ -11,7 +11,7 @@ async function postLeaderboard() {
     .sort((a, b) => a.points - b.points)
     // discord field limit
     .slice(0, 25)
-    .map((entry) => ({ name: `${entry.id}`, value: `<@${entry.id}>\nPoints:${entry.points}\nWarning-Level:${entry.warnLevel}` }));
+    .map((entry) => ({ name: `${entry.id}`, value: `<@${entry.id}>\nPoints: ${entry.points}\nWarning-Level: ${entry.warnLevel}` }));
   const embed = new EmbedBuilder()
     .setFooter({
       text: `Highest warn level is ${config.reducedRP.warnThresholds.length} at ${config.reducedRP.warnThresholds[config.reducedRP.warnThresholds.length - 1]} points.`,
