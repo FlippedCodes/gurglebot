@@ -20,9 +20,8 @@ module.exports.run = async (interaction) => {
 
   // ping team, once
   const messages = await interaction.channel.messages.fetch();
-  const botMessages = messages.filter((message) => message.author.id === client.user.id);
-  if (botMessages.size >= 2) return;
-  interaction.channel.send(`<@&${config.teamRole}>`);
+  const mentions = messages.filter((message) => message.mentions.roles.has(config.teamRole));
+  if (!mentions) interaction.channel.send(`<@&${config.teamRole}>`);
 
   // gray out button
   interaction.message.edit({ components: [buttons] });
