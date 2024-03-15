@@ -56,7 +56,7 @@ async function addUser(ID, DoB, allow, teammemberID) {
   return true;
 }
 
-module.exports.run = async (message, replace) => {
+module.exports.run = async (message) => {
   // check if team fore was pinged and if channel is a checkin channel
   const embed = new EmbedBuilder()
     .setColor('Green')
@@ -82,7 +82,7 @@ module.exports.run = async (message, replace) => {
   // dont activate 'checked' button, if DoB has not been checked
   const buttonsAdd = buttonsSetup({ checked: DoB ? checked : true, DoB });
   // check, if it was deferred
-  if (replace) return message.editReply({ embeds: [embed], components: [buttonsAdd] });
+  if (interaction.deferred) return message.editReply({ embeds: [embed], components: [buttonsAdd] });
   message.reply({ embeds: [embed], components: [buttonsAdd] });
 };
 
