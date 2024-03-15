@@ -5,7 +5,7 @@ module.exports.run = async (interaction) => {
   // if (!interaction.member.roles.cache.find(({ id }) => id === config.teamRole)) return messageFail(interaction, 'You don\'t have access to this command! òwó');
 
   if (interaction.channel.parentId !== config.checkin.categoryID) return messageFail(interaction, 'This channel is not a checkin channel.');
-  await client.functions.get('ENGINE_checkin_postReaction').run(interaction, true);
+  await client.functions.get('ENGINE_checkin_postReaction').run(interaction, false);
   messageSuccess(interaction, 'Checkin posted.');
 };
 
