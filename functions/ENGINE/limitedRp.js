@@ -8,7 +8,7 @@ async function postLeaderboard() {
   const leaderboardChannel = await client.channels.fetch(config.reducedRP.leaderboardChannel);
 
   const fields = users
-    .sort((a, b) => a.points - b.points)
+    .sort((a, b) => b.points - a.points)
     // discord field limit
     .slice(0, 25)
     .map((entry) => ({ name: `${entry.id}`, value: `<@${entry.id}>\nPoints: ${entry.points}\nWarning-Level: ${entry.warnLevel}` }));
