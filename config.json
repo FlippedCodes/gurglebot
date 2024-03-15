@@ -137,7 +137,7 @@
     },
     "reducedRP": {
         "pointsDeletionTime": 10E3,
-        "warnThresholds": [450, 550, 650],
+        "warnThresholds": [450, 500, 550],
         "leaderboardChannel": "1175234775414472775",
         "channels": [
             "496962434917990410",
