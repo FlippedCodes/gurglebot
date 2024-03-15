@@ -1,23 +1,26 @@
 const { EmbedBuilder } = require('discord.js');
 
+let leaderboardMessage;
+
 let users = [];
 
-async function updatePoints() {
-  users.forEach((user) => {
-    activeUser = users.find((userTemp) => userTemp.id === user.id);
+async function postLeaderboard() {
+  const leaderboardChannel = await client.channels.fetch(config.reducedRP.leaderboardChannel);
 
-    // check how often the deletion time fits into lastPointsDeletion
-    const difference = Date.now() - user.lastPointsDeletion;
-    const points = Math.round(difference / config.reducedRP.pointsDeletionTime);
-    // remove that amount of points
-    activeUser.points -= points;
-    // check if points go into negative and delete entire entry and return
-    if (Math.sign(activeUser.points) === -1) return users = users.filter((userTemp) => userTemp.id !== user.id);
-    // if points drop under threshold, reset warn
-    if (activeUser.points < config.reducedRP.warnThreshold) activeUser.warned = false;
-    // update lastPointsDeletion when points where adjusted
-    if (points !== 0) activeUser.lastPointsDeletion = Date.now();
-  });
+  const fields = users
+    .sort((a, b) => a.points - b.points)
+    // discord field limit
+    .slice(0, 25)
+    .map((entry) => ({ name: `${entry.id}`, value: `<@${entry.id}> - ${entry.points} P - ${entry.warnLevel} WL` }));
+  const embed = new EmbedBuilder()
+    .setFooter({
+      text: `Highest warn level is ${config.reducedRP.warnThresholds.length} at ${config.reducedRP.warnThresholds[config.reducedRP.warnThresholds.length - 1]} points.`,
+    })
+    .setTitle('RP Leaderboard')
+    .setColor(users.length === 0 ? 'Green' : 'Orange')
+    .addFields([...fields]);
+  if (!leaderboardMessage) return leaderboardMessage = await leaderboardChannel.send({ embeds: [embed] });
+  return leaderboardMessage.edit({ embeds: [embed] });
 }
 
 module.exports.run = async (message) => {
@@ -36,38 +39,66 @@ module.exports.run = async (message) => {
     await users.push({
       id,
       points,
-      warned: false,
+      warnLevel: 0,
       lastPointsDeletion: Date.now(),
     });
   }
 
   // Update point counts
-  await updatePoints();
+  users.forEach((user) => {
+    const activeUser = users.find((userTemp) => userTemp.id === user.id);
 
-  const activeUser = users.find((user) => user.id === id);
-  // sometimes user is deleted by updatePoints beforehand.
-  if (!activeUser) return;
-  // console.log(activeUser);
-  if (activeUser.points < config.reducedRP.warnThreshold) return;
+    // check how often the deletion time fits into lastPointsDeletion
+    const difference = Date.now() - user.lastPointsDeletion;
+    const points = Math.round(difference / config.reducedRP.pointsDeletionTime);
+    // remove that amount of points
+    activeUser.points -= points;
+    // check if points go into negative and delete entire entry and return
+    if (Math.sign(activeUser.points) === -1) return users = users.filter((userTemp) => userTemp.id !== user.id);
+    // if points drop under threshold, reset warn
+    if (activeUser.points < config.reducedRP.warnThreshold) activeUser.warned = false;
+
+    // set warn levels
+    config.reducedRP.warnThresholds.every((threshold, i) => {
+      // add warn level
+      if (activeUser.points >= threshold) {
+        // only step one warn at the time
+        if (activeUser.warnLevel >= (i + 1)) return true;
+        // overflow protection
+        if (activeUser.warnLevel === config.reducedRP.warnThresholds.length) return true;
+        activeUser.warnLevel += 1;
+        // reset points to warn threshold
+        activeUser.points = config.reducedRP.warnThresholds[activeUser.warnLevel - 1];
+        // TODO: Inform user
+        return false;
+      }
+      // remove warn level, if above statement is false. Don't ask me how, but it happend to work ¯\_(ツ)_/¯
+      if (activeUser.warnLevel === (i + 1)) {
+        // underflow protection
+        if (activeUser.warnLevel === 0) return false;
+        activeUser.warnLevel -= 1;
+        return false;
+      }
+      return true;
+    });
+    console.log(activeUser);
+    // if warn increased, higher warn level by one point and use that as index to reset to that level of points
+
+    // update lastPointsDeletion when points where adjusted
+    if (points !== 0) activeUser.lastPointsDeletion = Date.now();
+  });
   // TEMP: get testing report channel
-  const notify = await message.client.channels.fetch('1175234775414472775');
-  const embed = new EmbedBuilder()
-    .addFields([
-      { name: 'User ID', value: `\`${activeUser.id}\``, inline: true },
-      { name: 'Current Points', value: String(activeUser.points), inline: true },
-      // { name: 'Warned', value: prettyCheck(activeUser.warned), inline: true },
-      { name: 'lastPointsUpdate', value: `<t:${String(activeUser.lastPointsDeletion).slice(0, -3)}:f>`, inline: true },
-    ]);
-  // check if user has been warned
-  if (activeUser.warned) {
-    // delete rp message
-    embed.setColor('Red').setDescription(`<@${activeUser.id}> would have their message deleted.`);
-  } else {
-    // warn user
-    activeUser.warned = true;
-    embed.setColor('Orange').setDescription(`<@${activeUser.id}> would have been warned.`);
-  }
-  notify.send({ embeds: [embed] });
+  await postLeaderboard();
+
+  // // check if user has been warned
+  // if (activeUser.warned) {
+  //   // delete rp message
+  //   embed.setColor('Red').setDescription(`<@${activeUser.id}> would have their message deleted.`);
+  // } else {
+  //   // warn user
+  //   activeUser.warned = true;
+  //   embed.setColor('Orange').setDescription(`<@${activeUser.id}> would have been warned.`);
+  // }
 };
 
 module.exports.help = {
