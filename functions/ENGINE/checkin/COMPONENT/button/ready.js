@@ -16,7 +16,7 @@ module.exports.run = async (interaction) => {
   await interaction.deferReply();
 
   // ping team, once
-  const messages = await message.channel.messages.fetch();
+  const messages = await interaction.channel.messages.fetch();
   const found = await messages.filter((msg) => msg.author.id === channel.name);
   if (!found) return messageFail(interaction, 'Please answer the questions, before pressing the button.');
 
