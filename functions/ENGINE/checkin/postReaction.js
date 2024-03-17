@@ -74,6 +74,7 @@ module.exports.run = async (message) => {
       // add entry
       await addUser(userID, DoB, false, client.user.id);
     }
+    // TODO: insert code here, if users still don't get the format we ask for.
   } else {
     DoB = moment(userDoB.DoB).format(config.DoBchecking.dateFormats[0]);
   }

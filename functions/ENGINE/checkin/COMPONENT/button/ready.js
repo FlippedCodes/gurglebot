@@ -15,11 +15,16 @@ const buttons = new ActionRowBuilder()
 module.exports.run = async (interaction) => {
   await interaction.deferReply();
 
-  if (interaction.channel.parentId !== config.checkin.categoryID) return messageFail(interaction, 'This channel is not a checkin channel.');
-  await client.functions.get('ENGINE_checkin_postReaction').run(interaction);
+  // ping team, once
+  const messages = await message.channel.messages.fetch();
+  const found = await messages.filter((msg) => msg.author.id === channel.name);
+  if (!found) return messageFail(interaction, 'Please answer the questions, before pressing the button.');
 
   // gray out button
   interaction.message.edit({ components: [buttons] });
+
+  if (interaction.channel.parentId !== config.checkin.categoryID) return messageFail(interaction, 'This channel is not a check-in channel.');
+  await client.functions.get('ENGINE_checkin_postReaction').run(interaction);
 };
 
 module.exports.data = {
