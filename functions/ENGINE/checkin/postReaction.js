@@ -57,7 +57,7 @@ async function addUser(ID, DoB, allow, teammemberID) {
 }
 
 module.exports.run = async (message) => {
-  // check if team fore was pinged and if channel is a checkin channel
+  // check if team fore was pinged and if channel is a check-in channel
   const embed = new EmbedBuilder()
     .setColor('Green')
     .setDescription('Please wait for a teammember to review your answers.')

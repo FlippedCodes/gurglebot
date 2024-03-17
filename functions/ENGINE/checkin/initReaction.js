@@ -51,7 +51,7 @@ module.exports.run = async (reaction) => {
   // get guild and user
   const guild = await client.guilds.cache.find((guild) => guild.id === reaction.guild_id);
   const user = await client.users.fetch(reaction.member.user.id, false);
-  // check if user already has checkin channel
+  // check if user already has check-in channel
   const checkinChannel = await guild.channels.cache.find((channel) => channel.name === user.id);
   if (!checkinChannel) {
     const dayDiff = calcUserAge(user);
