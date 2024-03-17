@@ -18,7 +18,7 @@ module.exports.run = async (interaction) => {
   // ping team, once
   const messages = await interaction.channel.messages.fetch();
   const found = await messages.filter((msg) => msg.author.id === interaction.channel.name);
-  if (!found) return messageFail(interaction, 'Please answer the questions, before pressing the button.');
+  if (found.size === 0) return messageFail(interaction, 'Please answer the questions, before pressing the button.');
 
   // gray out button
   interaction.message.edit({ components: [buttons] });
