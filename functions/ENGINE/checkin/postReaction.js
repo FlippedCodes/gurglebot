@@ -80,10 +80,10 @@ module.exports.run = async (message) => {
   }
   const checked = userDoB ? userDoB.allow : false;
 
-  // ping team, once
+  // ping team, if not pinged already and only if user uses button/command
   const messages = await message.channel.messages.fetch();
   const mentions = messages.filter((message) => message.mentions.roles.has(config.teamRole));
-  if (mentions.size === 0) message.channel.send(`<@&${config.teamRole}>`);
+  if (mentions.size === 0 && message.member.id === userID) message.channel.send(`<@&${config.teamRole}>`);
 
   // dont activate 'checked' button, if DoB has not been checked
   const buttonsAdd = buttonsSetup({ checked: DoB ? checked : true, DoB });
