@@ -8,7 +8,7 @@ async function buildEmbed(roleData) {
   });
   const result = embed
     .setTitle('Rolerequest')
-    .setDescription(`Click on the reactions to get the roles!\nPlease read <#${config.checkin.reaction.channel}> for a more details about the roles!`);
+    .setDescription(`Click on the reactions to get the roles!\nPlease read <#1055987794478116956> for a more details about the roles!`);
   return result;
 }
 
