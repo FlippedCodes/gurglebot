@@ -3,6 +3,7 @@
     "guildId": "300051375914483715",
     "teamRole": "300661482830561281",
     "ownerRole": "300654913061388288",
+    "openChannelCategory": "1223444480536084621",
     "setup": {
         "logStatusChannel": "470889870160822273",
         "setupFunctions": [
@@ -77,7 +78,8 @@
         "categoryID": "750432209420156968",
         "welcomeChannel": "496962434917990410",
         "archiveChannel": "864936989400236072",
-        "checkinRole": "345333709391659009"
+        "checkinRole": "345333709391659009",
+        "hideOpenChannels": "1223444574593093702"
     },
     "aboutText": "./readme.md",
     "DoBchecking": {

@@ -7,6 +7,8 @@ module.exports.run = async (message) => {
   // TODO: foreach, with more roles
   // const staff = message.member.roles.cache.has(config.teamRole);
 
+  if (message.channel.parentId === config.openChannelCategory) return message.delete();
+
   if (config.contentWarning.checkChannels.includes(message.channel.id)) return client.functions.get('ENGINE_contentWarning_check').run(message);
 
   if (config.linkReplace.checkChannels.includes(message.channel.id)) return client.functions.get('ENGINE_linkReplace_check').run(message);
