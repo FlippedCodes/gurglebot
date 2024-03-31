@@ -7,7 +7,12 @@ module.exports.run = async (message) => {
   // TODO: foreach, with more roles
   // const staff = message.member.roles.cache.has(config.teamRole);
 
-  if (message.channel.parentId === config.openChannelCategory) return message.delete();
+  // TODO: make more pretty
+  if (message.channel.parentId === config.openChannelCategory) {
+    const loggingChannel = await message.guild.channels.fetch('1223649922100891739');
+    await loggingChannel.send(`Deleted message:\n\`\`\`${message.content}\`\`\``);
+    return message.delete();
+  }
 
   if (config.contentWarning.checkChannels.includes(message.channel.id)) return client.functions.get('ENGINE_contentWarning_check').run(message);
 
