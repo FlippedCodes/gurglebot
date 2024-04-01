@@ -27,7 +27,7 @@ module.exports.run = async (message) => {
   if (message.mentions.roles.has(config.teamRole)
     && message.channel.parentId === config.checkin.categoryID) return client.functions.get('ENGINE_checkin_postReaction').run(message);
 
-  if (message.channel.id === config.checkin.welcomeChannel) {
+  if (message.channel.id === '455334868788969473') {
     const sendMessage = (parsed) => {
       const content = parsed.pop();
       // word edgecase
@@ -41,6 +41,8 @@ module.exports.run = async (message) => {
     if (split2.length !== 1) return sendMessage(split2);
     const split3 = message.cleanContent.toLowerCase().split('i am ');
     if (split3.length !== 1) return sendMessage(split3);
+    const split4 = message.cleanContent.toLowerCase().split('i’m ');
+    if (split4.length !== 1) return sendMessage(split3);
   }
 };
 
