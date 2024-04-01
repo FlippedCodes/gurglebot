@@ -31,9 +31,10 @@ module.exports.run = async (message) => {
     const sendMessage = (parsed) => {
       const content = parsed.pop();
       // word edgecase
-      if (parsed.slice(-2)[0] !== '' && parsed.slice(-2)[0].slice(-1) !== ' ') return;
+      if (parsed.slice(-2)[0].slice(-1) === ' '
+        || parsed.slice(-2)[0].slice(-1) === '_'
+        || parsed.slice(-2)[0] === '') message.reply(`Hello ${content}\nI'm GurgleBot!`);
       // console.log(content);
-      message.reply(`Hello ${content}\nI'm GurgleBot!`);
     };
     const split1 = message.cleanContent.toLowerCase().split('im ');
     if (split1.length !== 1) return sendMessage(split1);
