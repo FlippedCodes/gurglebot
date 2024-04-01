@@ -14,19 +14,6 @@ module.exports.run = async (message) => {
   //   await loggingChannel.send(`Deleted message:\n\`\`\`${message.content}\`\`\``);
   //   return message.delete();
   // }
-
-  if (config.contentWarning.checkChannels.includes(message.channel.id)) return client.functions.get('ENGINE_contentWarning_check').run(message);
-
-  if (config.linkReplace.checkChannels.includes(message.channel.id)) return client.functions.get('ENGINE_linkReplace_check').run(message);
-
-  // check if channel channel is a limited RP zone
-  if (!DEBUG && config.reducedRP.channels.includes(message.channel.id)) return client.functions.get('ENGINE_limitedRp').run(message);
-  // if (config.reducedRP.channels.includes(message.channel.id)) return client.functions.get('ENGINE_limitedRp').run(message);
-
-  // non command function: check-in complete questioning Reaction adding
-  if (message.mentions.roles.has(config.teamRole)
-    && message.channel.parentId === config.checkin.categoryID) return client.functions.get('ENGINE_checkin_postReaction').run(message);
-
   if (message.channel.id === '496962434917990410') {
     const sendMessage = (parsed) => {
       const content = parsed.pop();
@@ -45,6 +32,18 @@ module.exports.run = async (message) => {
     const split4 = message.cleanContent.toLowerCase().split('i’m ');
     if (split4.length !== 1) return sendMessage(split3);
   }
+
+  if (config.contentWarning.checkChannels.includes(message.channel.id)) return client.functions.get('ENGINE_contentWarning_check').run(message);
+
+  if (config.linkReplace.checkChannels.includes(message.channel.id)) return client.functions.get('ENGINE_linkReplace_check').run(message);
+
+  // check if channel channel is a limited RP zone
+  if (!DEBUG && config.reducedRP.channels.includes(message.channel.id)) return client.functions.get('ENGINE_limitedRp').run(message);
+  // if (config.reducedRP.channels.includes(message.channel.id)) return client.functions.get('ENGINE_limitedRp').run(message);
+
+  // non command function: check-in complete questioning Reaction adding
+  if (message.mentions.roles.has(config.teamRole)
+    && message.channel.parentId === config.checkin.categoryID) return client.functions.get('ENGINE_checkin_postReaction').run(message);
 };
 
 module.exports.data = {
