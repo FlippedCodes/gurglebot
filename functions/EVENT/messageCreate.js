@@ -14,24 +14,26 @@ module.exports.run = async (message) => {
   //   await loggingChannel.send(`Deleted message:\n\`\`\`${message.content}\`\`\``);
   //   return message.delete();
   // }
-  if (message.channel.id === '496962434917990410') {
-    const sendMessage = (parsed) => {
-      const content = parsed.pop();
-      // word edgecase
-      if (parsed.slice(-2)[0].slice(-1) === ' '
-        || parsed.slice(-2)[0].slice(-1) === '_'
-        || parsed.slice(-2)[0] === '') message.reply(`Hello ${content}\nI'm GurgleBot!`);
-      // console.log(content);
-    };
-    const split1 = message.cleanContent.toLowerCase().split('im ');
-    if (split1.length !== 1) return sendMessage(split1);
-    const split2 = message.cleanContent.toLowerCase().split('i\'m ');
-    if (split2.length !== 1) return sendMessage(split2);
-    const split3 = message.cleanContent.toLowerCase().split('i am ');
-    if (split3.length !== 1) return sendMessage(split3);
-    const split4 = message.cleanContent.toLowerCase().split('i’m ');
-    if (split4.length !== 1) return sendMessage(split3);
-  }
+
+  // FIXME: @everyone can be mentioned!
+  // if (message.channel.id === '496962434917990410') {
+  //   const sendMessage = (parsed) => {
+  //     const content = parsed.pop();
+  //     // word edgecase
+  //     if (parsed.slice(-2)[0].slice(-1) === ' '
+  //       || parsed.slice(-2)[0].slice(-1) === '_'
+  //       || parsed.slice(-2)[0] === '') message.reply(`Hello ${content}\nI'm GurgleBot!`);
+  //     // console.log(content);
+  //   };
+  //   const split1 = message.cleanContent.toLowerCase().split('im ');
+  //   if (split1.length !== 1) return sendMessage(split1);
+  //   const split2 = message.cleanContent.toLowerCase().split('i\'m ');
+  //   if (split2.length !== 1) return sendMessage(split2);
+  //   const split3 = message.cleanContent.toLowerCase().split('i am ');
+  //   if (split3.length !== 1) return sendMessage(split3);
+  //   const split4 = message.cleanContent.toLowerCase().split('i’m ');
+  //   if (split4.length !== 1) return sendMessage(split3);
+  // }
 
   if (config.contentWarning.checkChannels.includes(message.channel.id)) return client.functions.get('ENGINE_contentWarning_check').run(message);
 
