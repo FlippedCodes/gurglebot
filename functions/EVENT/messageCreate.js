@@ -27,7 +27,7 @@ module.exports.run = async (message) => {
   if (message.mentions.roles.has(config.teamRole)
     && message.channel.parentId === config.checkin.categoryID) return client.functions.get('ENGINE_checkin_postReaction').run(message);
 
-  if (message.channel.id === config.checkin.welcomeChannel) {
+  if (message.channel.id === '496962434917990410') {
     const sendMessage = (parsed) => {
       const content = parsed.pop();
       // word edgecase
