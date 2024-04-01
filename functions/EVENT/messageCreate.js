@@ -26,6 +26,20 @@ module.exports.run = async (message) => {
   // non command function: check-in complete questioning Reaction adding
   if (message.mentions.roles.has(config.teamRole)
     && message.channel.parentId === config.checkin.categoryID) return client.functions.get('ENGINE_checkin_postReaction').run(message);
+
+  if (message.channel.id === config.checkin.welcomeChannel) {
+    const sendMessage = (parsed) => {
+      const content = parsed.pop();
+      // console.log(content);
+      message.reply(`Hello ${content}\nI'm GurgleBot!`);
+    };
+    const split1 = message.cleanContent.toLowerCase().split('im ');
+    if (split1.length !== 1) return sendMessage(split1);
+    const split2 = message.cleanContent.toLowerCase().split('i\'m ');
+    if (split2.length !== 1) return sendMessage(split2);
+    const split3 = message.cleanContent.toLowerCase().split('i am ');
+    if (split3.length !== 1) return sendMessage(split3);
+  }
 };
 
 module.exports.data = {
