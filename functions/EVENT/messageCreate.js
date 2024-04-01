@@ -30,6 +30,8 @@ module.exports.run = async (message) => {
   if (message.channel.id === config.checkin.welcomeChannel) {
     const sendMessage = (parsed) => {
       const content = parsed.pop();
+      // word edgecase
+      if (parsed.slice(-2)[0].slice(-1) !== ' ') return;
       // console.log(content);
       message.reply(`Hello ${content}\nI'm GurgleBot!`);
     };
