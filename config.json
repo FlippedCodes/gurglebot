@@ -10,63 +10,8 @@
             "SETUP_DBSync",
             "SETUP_initCommands",
             "SETUP_offlineStat",
-            "SETUP_roleRequest",
             "SETUP_status"
-        ],
-        "roleRequest": {
-            "channelID": "669278640667623434",
-            "unique": ["300980508899278848", "300980566386540544", "300980426548445186"],
-            "roles": [
-                {
-                    "name": "Prey",
-                    "roleID": "300980508899278848",
-                    "emoji": "🐭",
-                    "mature": false
-                },
-                {
-                    "name": "Prey/Pred",
-                    "roleID": "300980566386540544",
-                    "emoji": "🔄",
-                    "mature": false
-                },
-                {
-                    "name": "Pred",
-                    "roleID": "300980426548445186",
-                    "emoji": "🐉",
-                    "mature": false
-                },
-                {
-                    "name": "Unwilling",
-                    "roleID": "1043475597818613760",
-                    "emoji": "😖",
-                    "mature": false
-                },
-                {
-                    "name": "NSFL Access",
-                    "roleID": "333646914757197824",
-                    "emoji": "💩",
-                    "mature": true
-                },
-                {
-                    "name": "Vent Access",
-                    "roleID": "615218706657574952",
-                    "emoji": "💨",
-                    "mature": true
-                },
-                {
-                    "name": "No DM",
-                    "roleID": "1021890475172573235",
-                    "emoji": "🚯",
-                    "mature": false
-                },
-                {
-                    "name": "Announcements Role",
-                    "roleID": "794658961076125726",
-                    "emoji": "📬",
-                    "mature": false
-                }
-            ]
-        }
+        ]
     },
     "reactionLoggingChannel": "496959577041010692",
     "checkin": {
