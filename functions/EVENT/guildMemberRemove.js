@@ -1,6 +1,6 @@
 module.exports.run = async (member) => {
-  // check if user had roles | 1 beacuse @everyone is also a counted role
-  if (member.roles.cache.size !== 1) return;
+  // check if user had roles | 1 beacuse @everyone is also a counted role as well as the hide all channels
+  if (member.roles.cache.size !== 2) return;
   // get check-in channel
   const checkinChannel = await member.guild.channels.cache.find((channel) => channel.name === member.id);
   // delete check-in channel if existent
