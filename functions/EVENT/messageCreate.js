@@ -3,7 +3,7 @@ module.exports.run = async (message) => {
   if (message.author.bot) return;
   if (message.channel.type === 'dm') return;
 
-  // checking if staffmember
+  // checking if staff member
   // TODO: foreach, with more roles
   // const staff = message.member.roles.cache.has(config.teamRole);
 

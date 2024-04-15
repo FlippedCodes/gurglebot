@@ -1,5 +1,5 @@
 module.exports.run = async (interaction) => {
-  if (!interaction.member.roles.cache.has(config.teamRole)) return messageFail(interaction, 'Please wait for a Staffmember to verify you.\nYou can\'t use the buttons.');
+  if (!interaction.member.roles.cache.has(config.teamRole)) return messageFail(interaction, 'Please wait for a staff member to verify you.\nYou can\'t use the buttons.');
   await interaction.deferUpdate();
 
   const checkinChannel = interaction.channel;
