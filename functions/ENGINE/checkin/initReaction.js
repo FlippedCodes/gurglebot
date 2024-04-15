@@ -44,9 +44,6 @@ module.exports.run = async (reaction) => {
   if (DEBUG) return;
   // check emoji and channel
   const configReaction = config.checkin.reaction;
-  // DEPRECATED: split info channels
-  // if (reaction.member.roles.length > 1) return;
-  if (reaction.channel_id !== configReaction.channel) return;
   if (reaction.message_id !== configReaction.message) return;
   if (reaction.emoji.name !== configReaction.emoji) return;
   // get guild and user
