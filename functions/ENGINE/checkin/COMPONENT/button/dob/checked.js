@@ -26,6 +26,12 @@ const buttonsSetup = ({ checkedText, DoB }) => new ActionRowBuilder()
       .setLabel(DoB)
       .setDisabled(true)
       .setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder()
+      .setCustomId('checkin_COMPONENT_button_dob_idtutorial')
+      .setEmoji('🪪')
+      .setLabel('ID Tutorial')
+      .setDisabled(true)
+      .setStyle(ButtonStyle.Secondary),
   ]);
 
 async function changeUser(ID, allow) {

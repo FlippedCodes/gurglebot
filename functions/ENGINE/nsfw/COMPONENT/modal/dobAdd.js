@@ -35,6 +35,11 @@ const buttonsSetup = ({ DoB, DoBDisabled }) => new ActionRowBuilder()
       .setLabel(DoB)
       .setDisabled(DoBDisabled)
       .setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder()
+      .setCustomId('checkin_COMPONENT_button_dob_idtutorial')
+      .setEmoji('🪪')
+      .setLabel('ID Tutorial')
+      .setStyle(ButtonStyle.Secondary),
   ]);
 
 module.exports.run = async (interaction) => {

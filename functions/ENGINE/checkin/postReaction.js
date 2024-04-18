@@ -35,6 +35,7 @@ const buttonsSetup = ({ checked, DoB }) => new ActionRowBuilder()
       .setCustomId('checkin_COMPONENT_button_dob_idtutorial')
       .setEmoji('🪪')
       .setLabel('ID Tutorial')
+      .setDisabled(checked && DoB)
       .setStyle(ButtonStyle.Secondary),
   ]);
 
