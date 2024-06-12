@@ -1,6 +1,6 @@
 const moment = require('moment');
 
-const userDoB = require('../database/models/UserDoB');
+const userDoB = require('../../database/models/UserDoB');
 
 module.exports.run = async (ID) => {
   const dbUser = await userDoB.findOne({ where: { ID } }).catch(ERR);

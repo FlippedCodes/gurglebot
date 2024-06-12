@@ -1,9 +1,13 @@
 module.exports.run = async (interaction) => {
   if (!interaction.member.roles.cache.has(config.teamRole)) return messageFail(interaction, 'Please wait for a staff member to verify you.\nYou can\'t use the buttons.');
-
   if (interaction.channel.parentId !== config.checkin.categoryID) return messageFail(interaction, 'This channel is not a check-in channel.');
 
-  interaction.channel.send(`Hey, <@${interaction.channel.name}> seems like you are not following the ID verification instructions correctly. Please have another read of https://discord.com/channels/300051375914483715/496948681656893440/496985167160672267 and try again ^^`);
+  // remvove user reaction
+  const channel = await interaction.guild.channels.cache.get(config.checkin.reaction.channel);
+  const message = await channel.messages.fetch(config.checkin.reaction.message);
+  const content = `# ${message.content.split('# ')[2]}`;
+
+  interaction.channel.send(content);
   messageSuccess(interaction, 'Instructions sent.', undefined, true);
 };
 

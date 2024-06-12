@@ -2,7 +2,7 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
 const userDoB = require('../../../../../../database/models/UserDoB');
 
-const buttonsSetup = ({ checkedText, DoB }) => new ActionRowBuilder()
+const buttonsSetup = ({ checkedText }) => new ActionRowBuilder()
   .addComponents([
     new ButtonBuilder()
       .setCustomId('checkin_COMPONENT_button_allow')
@@ -18,12 +18,6 @@ const buttonsSetup = ({ checkedText, DoB }) => new ActionRowBuilder()
       .setCustomId('checkin_COMPONENT_button_dob_checked')
       .setEmoji('🔞')
       .setLabel(checkedText)
-      .setDisabled(true)
-      .setStyle(ButtonStyle.Secondary),
-    new ButtonBuilder()
-      .setCustomId('checkin_COMPONENT_button_dob_add')
-      .setEmoji('➕')
-      .setLabel(DoB)
       .setDisabled(true)
       .setStyle(ButtonStyle.Secondary),
     new ButtonBuilder()
@@ -47,15 +41,13 @@ module.exports.run = async (interaction) => {
   const userID = interaction.channel.name;
   const oldEmbeds = interaction.message.embeds;
 
-  const DoB = interaction.message.components[0].components.find((btn) => btn.customId === 'checkin_COMPONENT_button_dob_add').label;
-
   const changed = await changeUser(userID, true);
   if (!changed) {
     const failedButtons = buttonsSetup({ checkedText: 'Failed: Missing entry' });
     return interaction.message.edit({ embeds: [oldEmbeds[0]], components: [failedButtons] });
   }
 
-  const newButtons = buttonsSetup({ checkedText: 'Success: Checked', DoB });
+  const newButtons = buttonsSetup({ checkedText: 'Success: Checked' });
   interaction.message.edit({ embeds: [oldEmbeds[0]], components: [newButtons] });
 };
 

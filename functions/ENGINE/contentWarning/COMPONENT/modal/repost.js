@@ -1,11 +1,5 @@
 const { AttachmentBuilder } = require('discord.js');
 
-async function addUser(ID, DoB, allow, teammemberID) {
-  if (await userDoB.findOne({ where: { ID } }).catch(ERR)) return false;
-  await userDoB.findOrCreate({ where: { ID }, defaults: { DoB, allow, teammemberID } }).catch(ERR);
-  return true;
-}
-
 module.exports.run = async (interaction) => {
   // get modal field id and user provided CW text
   const customID = interaction.components[0].components[0].customId;

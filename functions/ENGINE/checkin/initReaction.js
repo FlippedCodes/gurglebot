@@ -41,7 +41,7 @@ async function createChannel(guild, user, topic) {
 }
 
 module.exports.run = async (reaction) => {
-  if (DEBUG) return;
+  // if (DEBUG) return;
   // check emoji and channel
   const configReaction = config.checkin.reaction;
   if (reaction.message_id !== configReaction.message) return;
@@ -62,7 +62,7 @@ module.exports.run = async (reaction) => {
     Creation date: ${user.createdAt}`;
     await createChannel(guild, user, topic);
   }
-  // remvove user reaction
+  // remove user reaction
   const reactionChannel = await guild.channels.cache.get(config.checkin.reaction.channel);
   const reactionMessage = await reactionChannel.messages.fetch(config.checkin.reaction.message);
   const initalReaction = await reactionMessage.reactions.cache.get(config.checkin.reaction.emoji);
