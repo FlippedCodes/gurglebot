@@ -5,9 +5,12 @@ const embed = new EmbedBuilder()
   .setDescription('It seems like your check-in got declined. Please get in touch with the team.')
   .setColor('Red');
 
-module.exports.run = async (interaction) => {
-  if (!interaction.member.roles.cache.has(config.teamRole)) return messageFail(interaction, 'Please wait for a staff member to verify you.\nYou can\'t use the buttons.');
-  await interaction.deferUpdate();
+module.exports.run = async (interaction, timedOut) => {
+  // needed for autoclose function
+  if (!timedOut) {
+    if (!interaction.member.roles.cache.has(config.teamRole)) return messageFail(interaction, 'Please wait for a staff member to verify you.\nYou can\'t use the buttons.');
+    await interaction.deferUpdate();
+  }
 
   const checkinChannel = interaction.channel;
   const userID = checkinChannel.name;

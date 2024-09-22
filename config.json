@@ -10,7 +10,8 @@
             "SETUP_DBSync",
             "SETUP_initCommands",
             "SETUP_offlineStat",
-            "SETUP_status"
+            "SETUP_status",
+            "SETUP_interval_checkinReminder"
         ]
     },
     "reactionLoggingChannel": "496959577041010692",
@@ -24,7 +25,14 @@
         "welcomeChannel": "496962434917990410",
         "archiveChannel": "864936989400236072",
         "checkinRole": "345333709391659009",
-        "hideOpenChannels": "1223444574593093702"
+        "hideOpenChannels": "1223444574593093702",
+        "reminders": {
+            "checkIntervalHours": 1,
+            "reminderIntervalHours": 24,
+            "reminderAmount": 3,
+            "warningTitle": "Reminder",
+            "warningText": "Hello! Are you still there?\n**If we don't get any reply from you, we are going to close this channel in $day day$grammarDay.**"
+        }
     },
     "aboutText": "./readme.md",
     "DoBchecking": {
