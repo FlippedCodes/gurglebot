@@ -3,7 +3,7 @@ module.exports.run = async (interaction) => {
   // only guild command
   if (!await interaction.inGuild()) return messageFail(interaction, 'This command is for servers only.');
   // check if user is owner
-  if (!interaction.member.roles.cache.find(({ id }) => id === '542778181556502540')) return messageFail(interaction, 'You don\'t have access to this command! òwó');
+  if (interaction.user.id !== '172031697355800577') return messageFail(interaction, 'You don\'t have access to this command! òwó');
 
   // prepare username, avatar and message
   const contentText = await interaction.channel.send(interaction.options.getString('message', true)).catch(ERR);
