@@ -11,7 +11,7 @@ module.exports.run = async (interaction) => {
   const avatarURL = interaction.member.displayAvatarURL({ format: 'png', dynamic: true, size: 512 });
 
   // get webhook and send message
-  const channel = interaction.message.channel;
+  const channel = interaction.channel;
   const channelWebhooks = await channel.fetchWebhooks();
   let hook = channelWebhooks.find((hook) => hook.owner.id === client.user.id);
   if (!hook) hook = await channel.createWebhook({ name: config.name }).catch(ERR);
