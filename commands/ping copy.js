@@ -6,7 +6,7 @@ module.exports.run = async (interaction) => {
   if (!interaction.member.roles.cache.find(({ id }) => id === '542778181556502540')) return messageFail(interaction, 'You don\'t have access to this command! òwó');
 
   // prepare username, avatar and message
-  const content = await interaction.channel.send(interaction.options.getString('message', true)).catch(ERR);
+  const contentText = await interaction.channel.send(interaction.options.getString('message', true)).catch(ERR);
   const username = message.member.nickname || message.author.username;
   const avatarURL = message.member.displayAvatarURL({ format: 'png', dynamic: true, size: 512 });
 
@@ -16,7 +16,11 @@ module.exports.run = async (interaction) => {
   let hook = channelWebhooks.find((hook) => hook.owner.id === client.user.id);
   if (!hook) hook = await channel.createWebhook({ name: config.name }).catch(ERR);
   hook.send({
-    content, username, avatarURL,
+    content: `\`\`\`ansi
+[2;31m${contentText}[0m
+\`\`\``,
+    username,
+    avatarURL,
   }).catch(ERR);
 };
 
