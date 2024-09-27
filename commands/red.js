@@ -7,11 +7,11 @@ module.exports.run = async (interaction) => {
 
   // prepare username, avatar and message
   const contentText = await interaction.channel.send(interaction.options.getString('message', true)).catch(ERR);
-  const username = message.member.nickname || message.author.username;
-  const avatarURL = message.member.displayAvatarURL({ format: 'png', dynamic: true, size: 512 });
+  const username = interaction.message.member.nickname;
+  const avatarURL = interaction.message.member.displayAvatarURL({ format: 'png', dynamic: true, size: 512 });
 
   // get webhook and send message
-  const channel = message.channel;
+  const channel = interaction.message.channel;
   const channelWebhooks = await channel.fetchWebhooks();
   let hook = channelWebhooks.find((hook) => hook.owner.id === client.user.id);
   if (!hook) hook = await channel.createWebhook({ name: config.name }).catch(ERR);
