@@ -29,7 +29,6 @@ module.exports.run = async (message) => {
   const findings = message.cleanContent.match(rpRegex);
   if (!findings) return;
   const points = findings.join().length;
-  console.debug(findings);
 
   // check if there is a user already to add the points to and check warnings.
   const id = message.author.id;
