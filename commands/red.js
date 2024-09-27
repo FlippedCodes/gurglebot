@@ -22,6 +22,7 @@ module.exports.run = async (interaction) => {
     username,
     avatarURL,
   }).catch(ERR);
+  reply(interaction, 'Sent!');
 };
 
 module.exports.data = new CmdBuilder()
