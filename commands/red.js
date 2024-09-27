@@ -6,7 +6,7 @@ module.exports.run = async (interaction) => {
   if (interaction.user.id !== '172031697355800577') return messageFail(interaction, 'You don\'t have access to this command! òwó');
 
   // prepare username, avatar and message
-  const contentText = await interaction.channel.send(interaction.options.getString('message', true)).catch(ERR);
+  const contentText = await interaction.options.getString('message', true);
   const username = interaction.member.nickname;
   const avatarURL = interaction.member.displayAvatarURL({ format: 'png', dynamic: true, size: 512 });
 
