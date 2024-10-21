@@ -5,14 +5,23 @@
     "version": "0.2.0",
     "configurations": [
       {
-        "name": "Launch Program",
+        "name": "Node",
         "program": "${workspaceFolder}/index.js",
         "request": "launch",
         "skipFiles": [
           "<node_internals>/**"
         ],
-        "type": "pwa-node",
+        "type": "node",
         "envFile": "${workspaceFolder}/.env"
+      },
+      {
+        "type": "bun",
+        "internalConsoleOptions": "neverOpen",
+        "request": "launch",
+        "name": "Bun",
+        "program": "index.js",
+        "stopOnEntry": false,
+        "watchMode": false
       }
   
     ]
