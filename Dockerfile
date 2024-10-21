@@ -14,7 +14,7 @@ RUN bun install --production
 
 # copy production dependencies and source code into final image
 FROM base AS release
-COPY --from=install /usr/src/app/node_modules .
+COPY --from=install /usr/src/app/node_modules ./node_modules
 COPY . .
 
 # run the app
