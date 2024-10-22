@@ -18,6 +18,7 @@ COPY --from=install /usr/src/app/node_modules ./node_modules
 COPY . .
 
 # run the app
-USER bun
+# DISABLED: Causes permission issues
+# USER bun
 EXPOSE 3000/tcp
 ENTRYPOINT [ "bun", "start"]
