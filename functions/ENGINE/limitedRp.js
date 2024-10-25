@@ -1,44 +1,41 @@
 const { EmbedBuilder } = require('discord.js');
 
 let leaderboardMessage;
-const leaderboardChannel = await client.channels.fetch(config.reducedRP.leaderboardChannel);
 
 let users = [];
 
-async function postLeaderboard() {
-  //const leaderboardChannel = await client.channels.fetch(config.reducedRP.leaderboardChannel);
-
+async function postLeaderboard(leaderboardChannel) {
   const fields = users
-      .sort((a, b) => b.points - a.points)
-      // discord field limit
-      .slice(0, 25)
-      .map((entry) => ({ name: `${entry.id}`, value: `<@${entry.id}>\nPoints: ${entry.points}\nWarning-Level: ${entry.warnLevel}` }));
+    .sort((a, b) => b.points - a.points)
+    // discord field limit
+    .slice(0, 25)
+    .map((entry) => ({ name: `${entry.id}`, value: `<@${entry.id}>\nPoints: ${entry.points}\nWarning-Level: ${entry.warnLevel}` }));
   const embed = new EmbedBuilder()
-      .setTitle('RP Leaderboard')
-      .setColor(users.filter((entry) => entry.warnLevel !== 0).length === 0 ? 'Green' : 'Orange')
-      .addFields([...fields]);
+    .setFooter({
+      text: `Highest warn level is ${config.reducedRP.warnThresholds.length} at ${config.reducedRP.warnThresholds[config.reducedRP.warnThresholds.length - 1]} points.`,
+    })
+    .setTitle('RP Leaderboard')
+    .setColor(users.filter((entry) => entry.warnLevel !== 0).length === 0 ? 'Green' : 'Orange')
+    .addFields([...fields]);
   if (!leaderboardMessage) return leaderboardMessage = await leaderboardChannel.send({ embeds: [embed] });
   return leaderboardMessage.edit({ embeds: [embed] });
 }
 
 module.exports.run = async (message) => {
+  const leaderboardChannel = await client.channels.fetch(config.reducedRP.leaderboardChannel);
   // check messages for all rp messages and convert them to points
   const rpRegex = /(?:\w*)[*_]{1,2}.*?[*_]{1,2}(?:\w*)/gm;
   const findings = message.cleanContent.match(rpRegex);
+  // don't do anything when user didn't send a RP message
   if (!findings) return;
-  let points = 0;
-
+  const points = findings.join().length;
   const id = message.author.id;
   const user = users.find((user) => user.id === id);
 
-  // Checking if user is already level warning 3. If so, delete message.
-  if(user && user.warnLevel === 3)
-    message.delete();
-  else // Or we just add points
-    points = findings.join().length;
-
   // check if there is a user already to add the points to and check warnings.
   if (user) {
+    // Checking if user is already level warning 3. If so, delete message.
+    if (user.warnLevel === 3) return message.delete();
     user.points += points;
   } else {
     await users.push({
@@ -48,7 +45,7 @@ module.exports.run = async (message) => {
       timeoutLevel: 0,
       timeouts: [0, 0, 0],
       messageTimeout: 0,
-      messageID: 0,
+      lastWarnMessage: 0,
       lastPointsDeletion: Date.now(),
     });
   }
@@ -64,11 +61,11 @@ module.exports.run = async (message) => {
     activeUser.points -= points;
     // check if points go into negative and delete entire entry and return
     if (Math.sign(activeUser.points) === -1) return users = users.filter((userTemp) => userTemp.id !== user.id);
-    // if points drop under threshold, reset warn
-    if (activeUser.points < config.reducedRP.warnThreshold) activeUser.warned = false;
+    // DEPRECATED: if points drop under threshold, reset warn
+    // if (activeUser.points < config.reducedRP.warnThreshold) activeUser.warned = false;
 
     // set warn levels
-    config.reducedRP.warnThresholds.every(async (threshold, i) => {
+    config.reducedRP.warnThresholds.forEach(async (threshold, i) => {
       // add warn level
       if (activeUser.points >= threshold) {
         // only step one warn at the time
@@ -78,61 +75,44 @@ module.exports.run = async (message) => {
         activeUser.warnLevel += 1;
         // reset points to warn threshold, so it fair and user goes through each stage
         activeUser.points = config.reducedRP.warnThresholds[activeUser.warnLevel - 1];
-        // TODO: Inform user (DrakEmono starting it)
         // Checking the level of latest warning that has been made to the user
-        if(activeUser.timeoutLevel >= activeUser.warnLevel) {
+        if (activeUser.timeoutLevel >= activeUser.warnLevel) {
           // Removing the timeout to lower the timeoutLevel variable
           clearTimeout(activeUser.timeouts[activeUser.warnLevel - 1]);
           return false;
         }
         activeUser.timeoutLevel++;
+
         // Posting the warning for a specific user
-        let description = '',
-            color = '';
-        switch(activeUser.timeoutLevel) {
-          case 1:
-            description = `<@${activeUser.id}> reached the first warning level!`;
-            color = 'Green';
-            break;
-          case 2:
-            description = `<@${activeUser.id}> reached the second warning level!`;
-            color = 'Orange';
-            break;
-          case 3:
-            description = `<@${activeUser.id}> reached the third warning level! (No RP anymore for now)`;
-            color = 'Red';
-        }
-        const embed = new EmbedBuilder()
-            .setTitle('Warning level reached')
-            .setDescription(description)
-            .setFooter({
-              text: 'No repercussion, just unable to send RP posts at third level!',
-            })
-            .setColor(color)
+        const colors = ['Orange', 'Red', 'NotQuiteBlack'];
+        const warningEmbed = new EmbedBuilder()
+          .setTitle('Warning level reached')
+          .setDescription(`<@${activeUser.id}> you reached warning level ${activeUser.warnLevel}!
+${config.reducedRP.warnThresholds.length === activeUser.warnLevel ? '(No RP anymore for now)' : ''}`)
+          .setColor(colors[activeUser.timeoutLevel - 1])
+          .setFooter({ text: `No repercussion, just unable to send RP posts at warning level ${config.reducedRP.warnThresholds.length}!` });
 
         // If there is still a message warning the user that hasn't been deleted yet, we delete it to replace it with a new one
-        if(activeUser.messageID) {
-          activeUser.messageID.delete();
-          activeUser.messageID = null;
+        if (activeUser.lastWarnMessage) {
+          activeUser.lastWarnMessage.delete();
+          activeUser.lastWarnMessage = null;
           clearTimeout(activeUser.messageTimeout);
         }
 
         // Message to warn the user
-        activeUser.messageID = await leaderboardChannel.send({ embeds: [embed] });
+        activeUser.lastWarnMessage = await leaderboardChannel.send({ content: `<@${activeUser.id}>`, embeds: [warningEmbed], ephemeral: true });
         activeUser.messageTimeout = setTimeout(() => {
-          activeUser.messageID.delete();
-          activeUser.messageID = null;
-        }, 5 * 60000); // 5 minutes
+          activeUser.lastWarnMessage.delete();
+          activeUser.lastWarnMessage = null;
+        }, config.reducedRP.warnMessageDeletionTime * 60E3);
         return false;
       }
-      // remove warn level, if above statement is false. Don't ask me how, but it happens to work ¯\_(ツ)_/¯
-      // Drake: Actually, I can explain if you're curious to know o.=.o I understood how it works
       if (activeUser.warnLevel === (i + 1)) {
         // underflow protection
         if (activeUser.warnLevel === 0) return false;
         activeUser.warnLevel -= 1;
         // Leaving some time before counting the decreasing level to avoid spamming warnings in case score goes up and down
-        activeUser.timeouts[activeUser.warnLevel] = setTimeout(() => activeUser.timeoutLevel--, 30 * 60000); // 30 minutes
+        activeUser.timeouts[activeUser.warnLevel] = setTimeout(() => activeUser.timeoutLevel--, config.reducedRP.warnMessageCooldown * 60E3);
         return false;
       }
       return true;
@@ -141,10 +121,9 @@ module.exports.run = async (message) => {
     // update lastPointsDeletion when points where adjusted
     if (points !== 0) activeUser.lastPointsDeletion = Date.now();
   });
-  // TEMP: get testing report channel
-  await postLeaderboard();
+  await postLeaderboard(leaderboardChannel);
 };
 
 module.exports.help = {
-  name: 'ENGINE_limitedRp',
+  name: 'limitedRp',
 };
