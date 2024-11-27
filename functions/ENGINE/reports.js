@@ -81,7 +81,7 @@ module.exports.run = async (interaction) => {
   modal.addComponents([new ActionRowBuilder().addComponents(refUsers)]);
   await interaction.showModal(modal);
 
-  const roleMembers = reportType === 'moderation' ? `<@&${config.adminRole}>` : `<@&${config.adminRole}>`;
+  const roleMembers = reportType === 'moderation' ? `<@&${config.adminRole}>` : `<@&${config.teamRole}>`;
   const body = [roleMembers, `Reported by ${interaction.member}`, `Report type: ${reportType}`];
 
   const filter = (i) => interaction.id === i.customId;
