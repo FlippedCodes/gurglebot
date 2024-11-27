@@ -82,7 +82,7 @@ module.exports.run = async (interaction) => {
   await interaction.showModal(modal);
 
   const roleMembers = reportType === 'moderator' ? `<@&${config.adminRole}>` : `<@&${config.teamRole}>`;
-  const body = [`Relevant for: ${roleMembers}`, `Reported by: ${interaction.member}`, `Report type: ${reportType}`];
+  const body = [`### Relevant for\n> ${roleMembers}`, `### Reported by\n> ${interaction.member}`, `### Report type\n> ${reportType}`];
 
   const filter = (i) => interaction.id === i.customId;
   interaction.awaitModalSubmit({ time: 900_000, filter })
@@ -97,7 +97,7 @@ module.exports.run = async (interaction) => {
         autoArchiveDuration: ThreadAutoArchiveDuration.OneWeek,
         type: ChannelType.PrivateThread,
       });
-      body.push(...userAnswers.filter((entry) => entry.value).map((question) => `# ${question.label}\n> ${question.value}`));
+      body.push(...userAnswers.filter((entry) => entry.value).map((question) => `### ${question.label}\n> ${question.value}`));
       thread.send(body.join('\n'));
     })
     .catch((err) => null);
