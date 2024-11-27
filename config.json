@@ -2,6 +2,7 @@
     "name": "GurgleBot",
     "guildId": "300051375914483715",
     "teamRole": "300661482830561281",
+    "adminRole": "438400756228292618",
     "ownerRole": "300654913061388288",
     "openChannelCategory": "1223444480536084621",
     "setup": {
@@ -11,7 +12,8 @@
             "SETUP_initCommands",
             "SETUP_offlineStat",
             "SETUP_status",
-            "SETUP_interval_checkinReminder"
+            "SETUP_interval_checkinReminder",
+            "SETUP_reportButton"
         ]
     },
     "reactionLoggingChannel": "496959577041010692",
@@ -117,5 +119,8 @@
             "max": 600000,
             "maxOrg": 600000
         }
+    },
+    "reportManager": {
+        "channelID": "1311461451843506368"
     }
 }
