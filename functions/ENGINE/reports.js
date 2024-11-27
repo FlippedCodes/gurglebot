@@ -93,7 +93,7 @@ module.exports.run = async (interaction) => {
         return { label, value: field.value };
       });
       const thread = await interaction.channel.threads.create({
-        name: moment().format('X'),
+        name: interactionAnswer.id,
         autoArchiveDuration: ThreadAutoArchiveDuration.OneWeek,
         type: ChannelType.PrivateThread,
       });
