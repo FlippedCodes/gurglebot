@@ -27,7 +27,7 @@ const select = new ActionRowBuilder()
           .setLabel('Moderation')
           .setEmoji('🛡️')
           .setDescription('I feel im being treated unfairly by a moderator.')
-          .setValue('moderation'),
+          .setValue('moderator'),
         new StringSelectMenuOptionBuilder()
           .setLabel('Admin or Owner')
           .setEmoji('💀')

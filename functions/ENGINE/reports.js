@@ -68,7 +68,7 @@ module.exports.run = async (interaction) => {
     case 'userVC':
       modal.addComponents([new ActionRowBuilder().addComponents(voiceChannel)]);
       break;
-    case 'moderation':
+    case 'moderator':
       modal.addComponents([new ActionRowBuilder().addComponents(messageLink)]);
       break;
     case 'admin':
@@ -81,7 +81,7 @@ module.exports.run = async (interaction) => {
   modal.addComponents([new ActionRowBuilder().addComponents(refUsers)]);
   await interaction.showModal(modal);
 
-  const roleMembers = reportType === 'moderation' ? `<@&${config.adminRole}>` : `<@&${config.teamRole}>`;
+  const roleMembers = reportType === 'moderator' ? `<@&${config.adminRole}>` : `<@&${config.teamRole}>`;
   const body = [roleMembers, `Reported by ${interaction.member}`, `Report type: ${reportType}`];
 
   const filter = (i) => interaction.id === i.customId;
