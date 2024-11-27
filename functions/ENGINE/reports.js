@@ -90,7 +90,8 @@ module.exports.run = async (interaction) => {
       interactionAnswer.deferUpdate();
       const userAnswers = interactionAnswer.fields.fields.map((field) => {
         const label = [consent, consentDM, messageLink, voiceChannel, reason, refUsers].find((question) => question.data.custom_id === field.customId).data.label;
-        return { label, value: field.value };
+        const value = field.value.replaceAll('\n', '\n> ');
+        return { label, value };
       });
       const thread = await interaction.channel.threads.create({
         name: interactionAnswer.id,
