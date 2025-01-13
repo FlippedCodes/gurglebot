@@ -43,6 +43,10 @@ module.exports.run = async (message) => {
   if (!DEBUG && config.reducedRP.channels.includes(message.channel.id)) return client.functions.get('ENGINE_limitedRp').run(message);
   // if (config.reducedRP.channels.includes(message.channel.id)) return client.functions.get('ENGINE_limitedRp').run(message);
 
+  // check if channel channel is a limited RP zone
+  if (!DEBUG && config.switchRP.channels.includes(message.channel.id)) return client.functions.get('ENGINE_switchRp').run(message);
+  // if (config.switchRP.channels.includes(message.channel.id)) return client.functions.get('ENGINE_switchRp').run(message);
+
   // non command function: check-in complete questioning Reaction adding
   if (message.mentions.roles.has(config.teamRole)
     && message.channel.parentId === config.checkin.categoryID) return client.functions.get('ENGINE_checkin_postReaction').run(message);
