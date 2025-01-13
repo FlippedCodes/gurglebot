@@ -1,6 +1,6 @@
 const { EmbedBuilder } = require('discord.js');
 
-const stickyMessageBody = 'You can only send every third message. Please, keep it a two-person RP. (Otherwise, this idea doesn\'t work.)';
+const stickyMessageBody = 'You can only send every third message. Please, keep it a two-character RP. (Otherwise, this idea doesn\'t work.)';
 
 module.exports.run = async (message) => {
   // get last message count for sending user.
