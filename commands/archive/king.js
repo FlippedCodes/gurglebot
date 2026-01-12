@@ -20,9 +20,9 @@ module.exports.run = async (interaction) => {
   timeout = moment().add(rog, 'ms');
   // get user from role and remove them
   // TODO: uncomment when event is done
-  // if (roleMembers[0]) {
-  //   await roleMembers[0].roles.remove(role);
-  // }
+  if (roleMembers[0]) {
+    await roleMembers[0].roles.remove(role);
+  }
   // give the role to the new king
   await interaction.member.roles.add(role);
   // output to user and log
